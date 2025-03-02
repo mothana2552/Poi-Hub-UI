@@ -328,12 +328,23 @@ function Kavo.CreateLib(kavName, themeList)
     MainSide.Position = UDim2.new(-7.4505806e-09, 0, 0.0911949649, 0)
     MainSide.Size = UDim2.new(0, 149, 0, 289)
 
+    -- เพิ่ม ImageLabel สำหรับแสดงรูปโปรไฟล์ของผู้เล่น
+    local Players = game:GetService("Players")
+    local player = Players.LocalPlayer  -- ดึงข้อมูลผู้เล่นที่รันสคริปต์
+
     local image = Instance.new("ImageLabel")
     image.Parent = MainSide  -- ใส่ใน UI หลัก
     image.BackgroundTransparency = 1
     image.Size = UDim2.new(0, 100, 0, 100)  -- ปรับขนาดตามต้องการ
     image.Position = UDim2.new(0, 10, 1, -110)  -- จัดวางซ้ายล่าง
-    image.Image = "rbxassetid://78464547405474"  -- ใช้รูปที่กำหนด
+
+-- ดึงรูปโปรไฟล์ของผู้เล่น
+    local userId = player.UserId
+    local thumbType = Enum.ThumbnailType.HeadShot
+    local thumbSize = Enum.ThumbnailSize.Size420x420
+    local content, isReady = Players:GetUserThumbnailAsync(userId, thumbType, thumbSize)
+
+    image.Image = content  -- ใช้รูปโปรไฟล์ของผู้เล่น
 
     sideCorner.CornerRadius = UDim.new(0, 4)
     sideCorner.Name = "sideCorner"
